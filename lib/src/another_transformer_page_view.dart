@@ -221,6 +221,8 @@ class TransformerPageView extends StatefulWidget {
   /// Same as [PageView.physics]
   final ScrollPhysics? physics;
 
+  final bool allowImplicitScrolling;
+
   /// Set to false to disable page snapping, useful for custom scroll behavior.
   /// Same as [PageView.pageSnapping]
   final bool pageSnapping;
@@ -275,6 +277,7 @@ class TransformerPageView extends StatefulWidget {
     this.loop = false,
     this.scrollDirection = Axis.horizontal,
     this.physics,
+    this.allowImplicitScrolling = false,
     this.pageSnapping = true,
     this.onPageChanged,
     this.controller,
@@ -430,6 +433,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
   Widget build(BuildContext context) {
     final builder = _transformer == null ? _buildItemNormal : _buildItem;
     final Widget child = PageView.builder(
+      allowImplicitScrolling: widget.allowImplicitScrolling,
       itemBuilder: builder,
       itemCount: _pageController!.getRealItemCount(),
       onPageChanged: _onIndexChanged,
